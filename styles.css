@@ -128,6 +128,7 @@ textarea:focus-visible {
   margin-right: auto;
 }
 .lead-form h2 { font-size: 1.3rem; line-height: 1.25; }
+.lead-form a { color: var(--navy); font-weight: 700; }
 .lead-form > p { margin-top: 0.5rem; }
 .lead-form form { margin-top: 1.25rem; }
 
