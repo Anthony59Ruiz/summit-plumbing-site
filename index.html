@@ -3,57 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Summit Plumbing — 24/7 Emergency Plumber</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: #0f2740;
-      color: #fff;
-    }
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 2rem 1.25rem;
-      gap: 1.5rem;
-    }
-    .hero h1 {
-      font-size: clamp(2rem, 6vw, 3.5rem);
-      line-height: 1.15;
-      max-width: 22ch;
-    }
-    .hero p.sub {
-      font-size: clamp(1rem, 3vw, 1.25rem);
-      color: #b8c9da;
-      max-width: 40ch;
-    }
-    .call-btn {
-      display: inline-block;
-      background: #f5a623;
-      color: #0f2740;
-      font-size: clamp(1.25rem, 4vw, 1.75rem);
-      font-weight: 700;
-      text-decoration: none;
-      padding: 1.1rem 2.5rem;
-      border-radius: 12px;
-    }
-    .call-btn:active { background: #d98f14; }
-    .trust {
-      font-size: 0.95rem;
-      color: #8fa6bb;
-    }
-  </style>
+  <title>Emergency Plumber — Summit Plumbing, San Gabriel Valley</title>
+  <meta name="description" content="Burst pipe or major leak? Summit Plumbing answers 24/7 in the San Gabriel Valley. Licensed CSLB #1099432. Call 555-0100.">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main class="hero">
-    <h1>Burst pipe? Blocked drain? We're on our way.</h1>
-    <p class="sub">Summit Plumbing — 24/7 emergency plumbing, usually at your door within the hour.</p>
-    <a class="call-btn" href="tel:555-0100">📞 Call Now: 555-0100</a>
-    <p class="trust">Licensed &amp; insured · 4.9★ from 200+ local reviews · No call-out fee</p>
+
+  <header class="site-header">
+    <span class="wordmark">Summit Plumbing</span>
+    <a class="header-phone" href="tel:555-0100">555-0100</a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Burst pipe? Water heater letting go?</h1>
+      <p class="hero-sub">Family-run since 2009 — when you call, a plumber picks up, not an answering service.</p>
+      <a class="call-btn" href="tel:555-0100">
+        Call now — 555-0100
+      </a>
+      <p class="hero-note">Serving the San Gabriel Valley. You'll get a real arrival time on the phone, not a four-hour window.</p>
+    </section>
+
+    <section class="trust" aria-label="Credentials">
+      <ul>
+        <li>CSLB #1099432</li>
+        <li>Licensed &amp; insured</li>
+        <li>Family-run since 2009</li>
+        <li>San Gabriel Valley</li>
+      </ul>
+    </section>
+
+    <section class="shutoff">
+      <h2>While you wait: shut off the water</h2>
+      <p>Stopping the water now saves your drywall and flooring. Here's where the main shut-off usually is:</p>
+      <ul>
+        <li><strong>Front of the house.</strong> Look for a valve on a pipe coming out of the ground near an outdoor faucet, usually on the side facing the street. Turn it clockwise until it stops.</li>
+        <li><strong>At the meter.</strong> If there's nothing at the house, find the concrete box in the sidewalk or parkway near the curb. The valve inside turns a quarter-turn with a wrench or pliers.</li>
+        <li><strong>Water heater leaking?</strong> Turn the valve on the cold line going into the top of the tank. If it's gas, turn the gas control dial to OFF too.</li>
+      </ul>
+      <p>If a valve is corroded and won't move, don't force it — an old valve can snap off and make things worse. Shut off at the meter instead, and tell us when you call.</p>
+    </section>
+
+    <section class="lead-form">
+      <h2>Can't call right now? Send us the details</h2>
+      <p>A plumber reads these day and night. If water is moving right now, don't type — call <a href="tel:555-0100">555-0100</a>.</p>
+      <form>
+        <div class="field">
+          <label for="name">Your name</label>
+          <input type="text" id="name" name="name" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="phone">Phone number</label>
+          <input type="tel" id="phone" name="phone" autocomplete="tel" required>
+        </div>
+        <div class="field">
+          <label for="address">Address</label>
+          <input type="text" id="address" name="address" autocomplete="street-address" required>
+        </div>
+        <div class="field">
+          <label for="details">What's happening?</label>
+          <textarea id="details" name="details" rows="4" placeholder="Example: water pooling under kitchen sink, shut-off valve won't budge" required></textarea>
+        </div>
+        <div class="field checkbox-field">
+          <input type="checkbox" id="emergency" name="emergency">
+          <label for="emergency">This is an emergency — water is actively leaking</label>
+        </div>
+        <!-- TODO: wire submit handler — form currently goes nowhere.
+             Decide on backend (Cloudflare Worker? Formspree?) before launch. -->
+        <button type="submit" class="submit-btn">Request a callback</button>
+      </form>
+    </section>
   </main>
+
+  <footer class="site-footer">
+    <p>Summit Plumbing · CSLB #1099432 · Serving the San Gabriel Valley</p>
+    <p><a href="tel:555-0100">555-0100</a> — 24 hours, every day</p>
+  </footer>
+
 </body>
 </html>

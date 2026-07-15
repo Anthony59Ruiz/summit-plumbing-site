@@ -1,0 +1,217 @@
+/* Mobile-first: base styles target 375px. One breakpoint scales up. */
+
+:root {
+  --navy: #10263d;
+  --navy-deep: #0b1c2e;
+  --white: #ffffff;
+  --slate: #c3d2e0;
+  --amber: #ffb020;
+  --amber-press: #e2960a;
+  --ink: #1b2733;
+  --paper: #f4f6f8;
+  --line: #d4dde5;
+  --focus: #4db2ff;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* Header — slim so the hero owns the first screen */
+.site-header {
+  background: var(--navy-deep);
+  color: var(--white);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 1rem;
+}
+.wordmark { font-weight: 700; font-size: 1rem; }
+.header-phone {
+  color: var(--amber);
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 0.25rem 0.25rem; /* enlarge tap target a little */
+}
+
+/* Hero — everything through the call button fits in 375x667 */
+.hero {
+  background: var(--navy);
+  color: var(--white);
+  padding: 1.75rem 1.25rem 1.5rem;
+  text-align: center;
+}
+.hero h1 {
+  font-size: 1.65rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+.hero-sub {
+  margin-top: 0.75rem;
+  color: var(--slate);
+  font-size: 1rem;
+}
+.call-btn {
+  display: block;
+  margin-top: 1.25rem;
+  background: var(--amber);
+  color: var(--navy-deep);
+  font-size: 1.35rem;
+  font-weight: 800;
+  text-decoration: none;
+  padding: 1.1rem 1rem; /* ~60px tall — thumb target */
+  border-radius: 12px;
+}
+.call-btn:active { background: var(--amber-press); }
+.hero-note {
+  margin-top: 0.75rem;
+  color: var(--slate);
+  font-size: 0.9rem;
+}
+
+/* Trust strip */
+.trust {
+  background: var(--navy-deep);
+  padding: 0.75rem 1rem;
+}
+.trust ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25rem 1rem;
+  color: var(--slate);
+  font-size: 0.85rem;
+}
+.trust li { white-space: nowrap; }
+
+/* Shut-off instructions */
+.shutoff {
+  padding: 1.75rem 1.25rem;
+  max-width: 40rem;
+  margin: 0 auto;
+}
+.shutoff h2 { font-size: 1.3rem; line-height: 1.25; }
+.shutoff p { margin-top: 0.75rem; }
+.shutoff ul {
+  margin-top: 0.75rem;
+  padding-left: 1.25rem;
+  display: grid;
+  gap: 0.6rem;
+}
+
+/* Lead form */
+.lead-form {
+  background: var(--white);
+  border-top: 1px solid var(--line);
+  padding: 1.75rem 1.25rem 2rem;
+}
+.lead-form h2,
+.lead-form p,
+.lead-form form {
+  max-width: 40rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+.lead-form h2 { font-size: 1.3rem; line-height: 1.25; }
+.lead-form a { color: var(--navy); font-weight: 700; }
+.lead-form > p { margin-top: 0.5rem; }
+.lead-form form { margin-top: 1.25rem; }
+
+.field { margin-bottom: 1rem; }
+.field label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+.field input[type="text"],
+.field input[type="tel"],
+.field textarea {
+  width: 100%;
+  font: inherit;
+  font-size: 1rem; /* 16px — prevents iOS zoom on focus */
+  padding: 0.75rem;
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--ink);
+}
+.field textarea { resize: vertical; }
+
+.checkbox-field {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+}
+.checkbox-field input[type="checkbox"] {
+  width: 1.4rem;
+  height: 1.4rem;
+  margin-top: 0.1rem;
+  flex-shrink: 0;
+}
+.checkbox-field label { font-weight: 600; margin-bottom: 0; }
+
+.submit-btn {
+  display: block;
+  width: 100%;
+  margin-top: 0.5rem;
+  background: var(--navy);
+  color: var(--white);
+  font: inherit;
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 1rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.submit-btn:active { background: var(--navy-deep); }
+
+/* Footer */
+.site-footer {
+  background: var(--navy-deep);
+  color: var(--slate);
+  text-align: center;
+  padding: 1.5rem 1.25rem;
+  font-size: 0.9rem;
+  display: grid;
+  gap: 0.4rem;
+}
+.site-footer a {
+  color: var(--amber);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* Scale up */
+@media (min-width: 700px) {
+  .hero { padding: 4rem 2rem 3.5rem; }
+  .hero h1 {
+    font-size: 2.6rem;
+    max-width: 24ch;
+    margin: 0 auto;
+  }
+  .hero-sub { font-size: 1.2rem; }
+  .call-btn {
+    display: inline-block;
+    padding: 1.1rem 3rem;
+    font-size: 1.5rem;
+  }
+  .trust ul { font-size: 0.95rem; gap: 0.25rem 1.5rem; }
+  .shutoff { padding: 2.5rem 2rem; }
+  .lead-form { padding: 2.5rem 2rem 3rem; }
+}
