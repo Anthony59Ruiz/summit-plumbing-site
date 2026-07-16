@@ -84,6 +84,25 @@
 }
 .submit-btn:active { background: var(--navy-deep); }
 
+/* Submit feedback: error keeps the form usable, success replaces it */
+.form-status { margin-top: 1rem; }
+.form-error {
+  border: 2px solid #b3261e;
+  background: #fbeeed;
+  border-radius: 8px;
+  padding: 1rem;
+}
+.form-success {
+  max-width: 40rem;
+  margin: 1.25rem auto 0;
+  border: 2px solid var(--navy);
+  border-radius: 12px;
+  background: var(--paper);
+  padding: 1.25rem 1.25rem 1.5rem;
+}
+.form-success h3 { font-size: 1.15rem; line-height: 1.25; }
+.form-success p { margin-top: 0.6rem; }
+
 /* Footer */
 .site-footer {
   background: var(--navy-deep);

@@ -204,7 +204,7 @@
     <section class="lead-form">
       <h2>Can't call right now? Send us the details</h2>
       <p>A plumber reads these day and night. If water is moving right now, don't type — call <a href="tel:555-0100">555-0100</a>.</p>
-      <form>
+      <form id="lead-form">
         <div class="field">
           <label for="name">Your name</label>
           <input type="text" id="name" name="name" autocomplete="name" required>
@@ -231,9 +231,8 @@
           <input type="checkbox" id="emergency" name="emergency">
           <label for="emergency">This is an emergency — water is actively leaking</label>
         </div>
-        <!-- TODO: wire submit handler — form currently goes nowhere.
-             Decide on backend (Cloudflare Worker? Formspree?) before launch. -->
         <button type="submit" class="submit-btn">Request a callback</button>
+        <div id="form-status" class="form-status" role="alert" hidden></div>
       </form>
     </section>
   </main>
@@ -242,6 +241,100 @@
     <p>Summit Plumbing · CSLB #1099432 · Serving the San Gabriel Valley</p>
     <p><a href="tel:555-0100">555-0100</a> — 24 hours, every day</p>
   </footer>
+
+  <script>
+    (function () {
+      var WORKER_URL = "https://summit-plumbing-worker.anthony59ruiz.workers.dev";
+      var TIMEOUT_MS = 10000;
+
+      var form = document.getElementById("lead-form");
+      var button = form.querySelector(".submit-btn");
+      var status = document.getElementById("form-status");
+
+      function callButton() {
+        var a = document.createElement("a");
+        a.className = "call-btn";
+        a.href = "tel:555-0100";
+        a.textContent = "Call now — 555-0100";
+        return a;
+      }
+
+      // A failed form must never be a dead end: every failure state ends
+      // in a tap-to-call button.
+      function showError(message) {
+        status.textContent = "";
+        status.className = "form-status form-error";
+        var p = document.createElement("p");
+        p.textContent = message;
+        status.appendChild(p);
+        status.appendChild(callButton());
+        status.hidden = false;
+        button.disabled = false;
+        button.textContent = "Request a callback";
+      }
+
+      function showSuccess(phone) {
+        var box = document.createElement("div");
+        box.className = "form-success";
+        box.setAttribute("role", "status");
+        var h = document.createElement("h3");
+        h.textContent = "Got it — a plumber will call you back";
+        var p1 = document.createElement("p");
+        p1.textContent = "Your details are in front of our on-call plumber now. " +
+          "We’ll call you back at " + phone + ", day or night.";
+        var p2 = document.createElement("p");
+        p2.textContent = "If water starts moving before we reach you, don’t wait for the callback:";
+        box.appendChild(h);
+        box.appendChild(p1);
+        box.appendChild(p2);
+        box.appendChild(callButton());
+        form.replaceWith(box);
+      }
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        var payload = {
+          name: document.getElementById("name").value.trim(),
+          phone: document.getElementById("phone").value.trim(),
+          address: document.getElementById("address").value.trim(),
+          description: document.getElementById("details").value.trim(),
+          emergency: document.getElementById("emergency").checked ? "yes" : "no",
+          source: "web form",
+          website: document.getElementById("website").value
+        };
+
+        button.disabled = true;
+        button.textContent = "Sending...";
+        status.hidden = true;
+
+        var controller = new AbortController();
+        var timer = setTimeout(function () { controller.abort(); }, TIMEOUT_MS);
+
+        fetch(WORKER_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+          signal: controller.signal
+        })
+          .then(function (res) { return res.json(); })
+          .then(function (data) {
+            if (data.ok !== true) {
+              var detail = Array.isArray(data.errors) ? " (" + data.errors.join("; ") + ")" : "";
+              showError("We couldn’t accept the form as filled out" + detail +
+                ". Fix it and try again, or skip the form entirely:");
+              return;
+            }
+            showSuccess(payload.phone);
+          })
+          .catch(function () {
+            showError("Our request system isn’t responding and your details did NOT go through. " +
+              "Please call instead — a plumber picks up, day or night.");
+          })
+          .then(function () { clearTimeout(timer); });
+      });
+    })();
+  </script>
 
 </body>
 </html>
